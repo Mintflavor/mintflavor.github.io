@@ -97,7 +97,7 @@ author:
   name             : "Mintflavor"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Hanyang University ERICA 17 Industrial Management Engineering"
-  location         : ""
+  location         : 
   email            : "mintflavorbora@gmail.com"
   links:
     - label: "Email"
