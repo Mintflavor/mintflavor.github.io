@@ -98,7 +98,7 @@ author:
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Hanyang University ERICA\n17 Industrial Management Engineering"
   location         : ""
-  email            :
+  email            : "mintflavorbora@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
