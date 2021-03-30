@@ -55,19 +55,19 @@ train_set_x_orig, train_set_y, test_set_x_orig, test_set_y, classes = load_datas
 
 `load_dataset()` 함수를 이용하여 각 변수에 데이터셋을 저장한다.
 
-+ `train_set_x_orig` : 신경망을 트레이닝할 이미지 데이터셋이다.
-+ `train_set_y` : 신경망을 트레이닝할 이미지 데이터셋의 라벨 값들이다.
-+ `test_set_x_orig` : 신경망을 테스트할 이미지 데이터셋이다.
-+ `test_set_y` : 신경망을 테스트할 이미지 데이터셋의 라벨 값들이다.
++ `train_set_x_orig` : 신경망을 트레이닝할 데이터셋 이미지들의 픽셀값들을 담은 행렬이다.
++ `train_set_y` : 신경망을 트레이닝할 데이터셋 이미지들의 라벨 값들을 담은 행렬이다.
++ `test_set_x_orig` : 신경망을 테스트할 데이터셋 이미지들의 픽셀값들을 담은 행렬이다.
++ `test_set_y` : 신경망을 테스트할 데이터셋 이미지들의 라벨 값들을 담은 행렬이다.
 + `classes` : 라벨 값들의 이름(cat / non-cat)이 있는 array이다.
 
 위 변수들은 모두 `numpy.ndarray` 이며,  `ndarray` 는 동일 타입의 원소가 담긴 다차원 행렬로 벡터 연산이 가능하다.
 
 `train_set_x_orig` 과 `test_set_x_orig` 뒤에 `_orig` 가 붙어있는 이유는 이미지 데이터셋을 가공한 후 원본 데이터셋과 구분을 하기 위해 붙어있다.
 
-#### 1.2.3 - 이미지 확인하기
+#### 1.2.3 - 이미지 출력하기
 
-다음 코드를 통해 데이터셋의 이미지 파일 하나를 출력할 수 있다.
+다음 코드를 통해 트레이닝 데이터셋의 이미지 파일 하나를 출력할 수 있다. `index` 값을 수정하면 다른 이미지 파일도 불러올 수 있다.
 
 ```python
 # Example of a picture
@@ -76,4 +76,42 @@ plt.imshow(train_set_x_orig[index])
 print ("y = " + str(train_set_y[:, index]) + ", it's a '" + classes[np.squeeze(train_set_y[:, index])].decode("utf-8") +  "' picture.")
 ```
 ![Logistic_Regression_image1](/assets/Logistic_Regression_image1.png)
+
+#### 1.2.4 - 이미지 갯수와 크기 확인하기
+
+먼저, 불러온 데이터셋의 크기를 확인한다. `numpy.ndarray` 의 크기는 `.shape` 를 이용하여 확인할 수 있다.
+
+```python
+print ("train_set_x_orig shape: " + str(train_set_x_orig.shape))
+print ("train_set_y shape: " + str(train_set_y.shape))
+print ("test_set_x_orig shape: " + str(test_set_x_orig.shape))
+print ("test_set_y shape: " + str(test_set_y.shape))
+
+# train_set_x_orig shape: (209, 64, 64, 3)
+# train_set_y shape: (1, 209)
+# test_set_x_orig shape: (50, 64, 64, 3)
+# test_set_y shape: (1, 50)
+```
+
++ `train_set_x_orig ` 과 `test_set_x_orig` 의 `shape` 는 `(m_train or m_test, num_px, num_px, channel)` 이다.
++ `train_set_y` 와 `test_set_y` 의 `shape` 는 `(label, m_train or m_test)` 이다.
++ `m_train or m_test` 는 각 데이터셋의 이미지 갯수이다.
+
+따라서 트레이닝셋의 이미지 갯수는 209개, 테스트셋의 이미지 갯수는 50개, 각 이미지의 크기(픽셀 수)는 64*64 임을 알 수 있다.
+
+#### 1.2.5 - 이미지 가공하기
+
+현재 이미지의 형태는 `(num_px, num_px, 3)` 이기 때문에 다루기가 까다롭다. 신경망을 학습할 때 이미지를 다루기 쉽도록 `(num_px * num_px * 3, 1)` 형태인 1차원 행렬로 바꿔준다.
+
+```python
+# Reshape the training and test examples
+train_set_x_flatten = train_set_x_orig.reshape(train_set_x_orig.shape[0], -1).T
+test_set_x_flatten = test_set_x_orig.reshape(test_set_x_orig.shape[0], -1).T
+
+print ("train_set_x_flatten shape: " + str(train_set_x_flatten.shape))
+print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
+```
+
++ `.reshape(행의 수, 열의 수)` : 행렬의 구조를 변환한다. 행의 수를 지정하고 열의 수에 `-1` 을 지정해주면 변환될 행렬의 열의 수는 알아서 지정해준다.
++ `.T` : 행렬을 전치(Transpose)한다. 전치행렬은 행과 열을 교환하여 얻는 행렬이다. 자세한 내용은 [여기](https://ko.wikipedia.org/wiki/%EC%A0%84%EC%B9%98%ED%96%89%EB%A0%AC)를 참고.
 
