@@ -6,7 +6,7 @@ tags: Coursera Deep-Learning Logistic-Regression Neural-Network Keras
 ---
 
 ---
-Coursera에서 `Andrew Ng`의 `Neural Networks and Deep Learning`을 수강하고 있다.
+Coursera에서 `Andrew Ng`의 `Neural Networks and Deep Learning`을 수강하고 있다.  
 2주차 마지막에 Logistic Regression과 Neural Network를 이용하여 주어진 사진들이 고양이인지 아닌지를 분류하는 신경망을 구현하는 과제가 있다.
 
 > Welcome to the first (required) programming exercise of the deep learning specialization. In this notebook you will build your first image recognition algorithm. You will build a cat classifier that recognizes cats with 70% accuracy!
