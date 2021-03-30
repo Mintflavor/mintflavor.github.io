@@ -6,3 +6,5 @@ tags: Coursera Deep-Learning Logistic-Regression Neural-Network Keras
 ---
 
 ---
+Coursera에서 Andrew Ng의 Neural Networks and Deep Learning을 수강하고 있다.
+2주차 마지막
