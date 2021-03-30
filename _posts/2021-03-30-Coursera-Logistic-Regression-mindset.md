@@ -126,3 +126,4 @@ test_set_x = test_set_x_flatten/255.
 ```
 
 ### 1.3 학습 알고리즘 구조
+![Logistic_Regression_image2](/assets/Logistic_Regression_image2.png)
