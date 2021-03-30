@@ -14,7 +14,6 @@ Coursera에서 `Andrew Ng`의 `Neural Networks and Deep Learning`을 수강하�
 강좌에서 제공하는 Jupyter Notebook 파일을 차근차근 따라가면 약 70%의 정확성을 가지는 멋진 신경망을 구현할 수 있다.
 
 ## 1 - 로지스틱 회귀분석과 신경망을 이용하여 고양이 사진 분류하기
----
 ### 1.1 - Package
 먼저 데이터 전처리, 로지스틱 회귀분석, 신경망 제작을 위해 필요한 패키지들을 임포트한다.
 
