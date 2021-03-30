@@ -75,7 +75,7 @@ index = 2
 plt.imshow(train_set_x_orig[index])
 print ("y = " + str(train_set_y[:, index]) + ", it's a '" + classes[np.squeeze(train_set_y[:, index])].decode("utf-8") +  "' picture.")
 ```
-![Logistic_Regression_image1](/assets/Logistic_Regression_image1.png)
+![Logistic_Regression_image1](/assets/Logistic_Regression_image1.png){: width="540" height="568"}
 
 #### 1.2.4 - 이미지 갯수와 크기 확인하기
 
@@ -125,5 +125,4 @@ train_set_x = train_set_x_flatten/255.
 test_set_x = test_set_x_flatten/255.
 ```
 
-
-
+### 1.3 학습 알고리즘 구조
