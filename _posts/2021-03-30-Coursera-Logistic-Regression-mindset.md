@@ -134,27 +134,22 @@ test_set_x = test_set_x_flatten/255.
 ![Logistic_Regression_image2](/assets/Logistic_Regression_image2.png)
 
 알고리즘의 수학적 표현을 살펴보자.
-$$
+$
 z^{(i)}=w^Tx^{(i)}+b\tag{1}
-$$
+$
 
-$$
+$
 \hat{y}^{(i)}=a^{(i)}=sigmoid(z^{(i)})\tag{2}
-$$
+$
 
-$$
+$
 \mathcal{L}(a^{(i)},y^{(i)})=-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})\tag{3}
-$$
+$
 
-$$
+$
 J=\frac{1}{m}\sum_{i=1}^m\mathcal{L}(a^{(i)},y^{(i)})\tag{4}
-$$
+$
 
 + `(i)` 는 Layer의 index이다.
 + `z` 는 `가중치의 전치행렬`과 `x행렬` 을 내적(dot product)하고 `bias(편향)` 을 더한 스칼라 값이다.
 + `a` 는 `z` 에 활성화 함수(sigmoid function)를 적용하여 나온 이미지에 대한 라벨 예측 값(확률)이다.
-
-
-
-
-
