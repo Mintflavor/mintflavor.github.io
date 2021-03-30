@@ -101,7 +101,7 @@ print ("test_set_y shape: " + str(test_set_y.shape))
 
 #### 1.2.5 - 이미지 가공하기
 
-현재 이미지의 형태는 `(num_px, num_px, 3)` 이기 때문에 다루기가 까다롭다. 신경망을 학습할 때 이미지를 다루기 쉽도록 `(num_px * num_px * 3, 1)` 형태인 1차원 행렬로 바꿔준다.
+현재 이미지의 형태는 `(num_px, num_px, 3)` 이기 때문에 다루기가 까다롭다. 신경망을 학습할 때 이미지를 다루기 쉽도록 `(num_px * num_px * 3, m_train or m_test)` 형태인 2차원 행렬로 바꿔준다.
 
 ```python
 # Reshape the training and test examples
@@ -110,8 +110,20 @@ test_set_x_flatten = test_set_x_orig.reshape(test_set_x_orig.shape[0], -1).T
 
 print ("train_set_x_flatten shape: " + str(train_set_x_flatten.shape))
 print ("test_set_x_flatten shape: " + str(test_set_x_flatten.shape))
+
+# train_set_x_flatten shape: (12288, 209)
+# test_set_x_flatten shape: (12288, 50)
 ```
 
 + `.reshape(행의 수, 열의 수)` : 행렬의 구조를 변환한다. 행의 수를 지정하고 열의 수에 `-1` 을 지정해주면 변환될 행렬의 열의 수는 알아서 지정해준다.
 + `.T` : 행렬을 전치(Transpose)한다. 전치행렬은 행과 열을 교환하여 얻는 행렬이다. 자세한 내용은 [여기](https://ko.wikipedia.org/wiki/%EC%A0%84%EC%B9%98%ED%96%89%EB%A0%AC)를 참고.
+
+컬러 이미지를 나타내려면 각 픽셀에 대해 빨간색, 녹색, 파란색 채널(RGB)을 지정해야 하므로 픽셀 값은 실제로 0부터 255까지의 3개의 정수 벡터이다. 보통 데이터를 가공할 때 `표준화 또는 정규화` 하는 과정을 거쳐야 하지만 이미지 데이터셋은 행렬의 모든 값을 255(픽셀 채널의 최대값)로 나누는 것이 더 간단하고 잘 작동한다.
+
+```python
+train_set_x = train_set_x_flatten/255.
+test_set_x = test_set_x_flatten/255.
+```
+
+
 
