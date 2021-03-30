@@ -75,7 +75,7 @@ index = 2
 plt.imshow(train_set_x_orig[index])
 print ("y = " + str(train_set_y[:, index]) + ", it's a '" + classes[np.squeeze(train_set_y[:, index])].decode("utf-8") +  "' picture.")
 ```
-![Logistic_Regression_image1](/assets/Logistic_Regression_image1.png){: width="540" height="568"}
+![Logistic_Regression_image1](/assets/Logistic_Regression_image1.png){: width="270" height="284"}
 
 #### 1.2.4 - 이미지 갯수와 크기 확인하기
 
@@ -126,4 +126,33 @@ test_set_x = test_set_x_flatten/255.
 ```
 
 ### 1.3 학습 알고리즘 구조
+
+다음은 신경망이 이미지를 분류하는 과정을 나타낸 그림이다.
+
 ![Logistic_Regression_image2](/assets/Logistic_Regression_image2.png)
+
+알고리즘의 수학적 표현을 살펴보자.
+$$
+z^{(i)}=w^Tx^{(i)}+b\tag{1}
+$$
+
+$$
+\hat{y}^{(i)}=a^{(i)}=sigmoid(z^{(i)})\tag{2}
+$$
+
+$$
+\mathcal{L}(a^{(i)},y^{(i)})=-y^{(i)}log(a^{(i)})-(1-y^{(i)})log(1-a^{(i)})\tag{3}
+$$
+
+$$
+J=\frac{1}{m}\sum_{i=1}^m\mathcal{L}(a^{(i)},y^{(i)})\tag{4}
+$$
+
++ `(i)` 는 Layer의 index이다.
++ `z` 는 `가중치의 전치행렬`과 `x행렬` 을 내적(dot product)하고 `bias(편향)` 을 더한 스칼라 값이다.
++ `a` 는 `z` 에 활성화 함수(sigmoid function)를 적용하여 나온 이미지에 대한 라벨 예측 값(확률)이다.
+
+
+
+
+
