@@ -95,7 +95,7 @@ print ("test_set_y shape: " + str(test_set_y.shape))
 # test_set_y shape: (1, 50)
 ```
 
-+ `train_set_x_orig ` 과 `test_set_x_orig` 의 `shape` 는 `(m_train or m_test, num_px, num_px, channel)` 이다.
++ `train_set_x_orig` 과 `test_set_x_orig` 의 `shape` 는 `(m_train or m_test, num_px, num_px, channel)` 이다.
 + `train_set_y` 와 `test_set_y` 의 `shape` 는 `(label, m_train or m_test)` 이다.
 + `m_train or m_test` 는 각 데이터셋의 이미지 갯수이다.
 
@@ -151,8 +151,24 @@ J=\frac{1}{m}\sum_{i=1}^m\mathcal{L}(a^{(i)},y^{(i)})\tag{4}
 $$
 
 + `(i)` 는 Layer의 index이다.
-+ `z` 는 `가중치의 전치행렬`과 `x행렬` 을 `내적(dot product)`한 후 `bias(편향)` 을 더한 `스칼라 값`이다.
++ `z` 는 `가중치(weight)의 전치행렬`과 `x행렬` 을 `내적(dot product)`한 후 `편향(bias)` 을 더한 `스칼라 값`이다.
 + `a` 는 `z` 에 `활성화 함수(sigmoid function)` 를 적용하여 나온 이미지에 대한 `라벨 예측 값(확률)`이다.
-+ $\mathcal{L}(a^{(i)},y^{(i)})$ 는 로지스틱 회귀의 `비용함수`이다.
-+ `J` 는 전체 m에 대한 총 비용의 평균값이다.
++ $\mathcal{L}(a^{(i)},y^{(i)})$ 는 로지스틱 회귀의 `비용(오차)함수`이다.
++ `J` 는 전체 m에 대한 총 비용(오차)의 `평균값`이다.
 
+이제 다음 스텝을 따라 신경망을 제작한다.
+
+1. 신경망 구조를 정의한다.
+2. 신경망의 각종 `파라미터값(weight, bias)`을 `랜덤으로 초기화` 한다.
+3. `비용(오차)을 최소화`하는 파라미터값을 구할 수 있도록 신경망을 학습시킨다.
+4. 학습된 신경망을 통해 테스트셋을 예측한다.
+5. 결과를 분석하고 결론을 내린다.
+
+### 1.4 - 알고리즘 구현하기
+
+#### 1.4.1 - 활성화 함수 구현
+
+위 그림과 수식을 통해 보았듯이 활성화 함수를 이용하여 라벨 예측 값을 구해야 한다. 다양한 활성화 함수가 있으며 상황에 따라 적절한 함수를 사용하면 된다.
+$$
+sigmoid(x), tanh(x), ReLU(x), Leakly ReLU(x), softmax(x), ETC...
+$$
