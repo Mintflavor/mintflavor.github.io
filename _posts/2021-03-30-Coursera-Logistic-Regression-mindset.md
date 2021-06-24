@@ -134,6 +134,7 @@ test_set_x = test_set_x_flatten/255.
 ![Logistic_Regression_image2](/assets/Logistic_Regression_image2.png)
 
 알고리즘의 수학적 표현을 살펴보자.
+
 $$
 z^{(i)}=w^Tx^{(i)}+b\tag{1}
 $$
