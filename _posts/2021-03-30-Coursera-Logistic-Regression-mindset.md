@@ -242,7 +242,7 @@ def propagate(w, b, X, Y):
 
 $$ \theta=\theta-\alpha d\theta $$
 
-이 때, $\alpha$ 는 `학습률(learning rate)` 이다.
+이 때, $\alpha$ 는 `학습률(learning rate)` 이며 `1 이하의 값` 을 가진다.
 
 ```python
 def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
@@ -302,3 +302,67 @@ def predict(w, b, X):
 
     return Y_prediction
 ```
+
+### 1.5 - 모든 함수를 합쳐 모델 구현하기
+
+이제 고양이 사진을 분류하기 위한 모든 함수 구현이 마무리 되었다. 이제 앞서 구현한 모든 함수들을 하나로 합쳐 모델을 구현한다.
+
+```python
+def model(X_train, Y_train, X_test, Y_test, num_iterations=2000, learning_rate=0.5, print_cost=False):
+  # Initialize parameters with zeros
+  w, b = initialize_with_zeros(X_train.shape[0])
+
+  # Gradient  descent
+  parameters, grads, costs = optimize(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost)
+
+  # Retrieve parameters w and b from dictionary "parameters"
+  w = parameters["w"]
+  b = parameters["b"]
+
+  # Predict test/train set examples
+  Y_prediction_test = predict(w, b, X_test)
+  Y_prediction_train = predict(w, b, X_train)
+
+  # Print train/test Errors
+  print(f"train accuracy: {100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100}")
+  print(f"test accuracy: {100 - np.mean(np.abs(Y_prediction_test - Y_test)) * 100}")
+
+  d = {"costs" : costs,
+       "Y_prediction_test" : Y_prediction_test,
+       "Y_prediction_train" : Y_prediction_train,
+       "w" : w,
+       "b" : b,
+       "learning_rate" : learning_rate,
+       "num_iterations" : num_iterations}
+
+  return d
+```
+
+```python
+d = model(train_set_x, train_set_y, test_set_x, test_set_y, num_iterations = 2000, learning_rate = 0.005, print_cost = True)
+
+#Cost after iteration 0: 0.693147
+#Cost after iteration 100: 0.584508
+#Cost after iteration 200: 0.466949
+#Cost after iteration 300: 0.376007
+#Cost after iteration 400: 0.331463
+#Cost after iteration 500: 0.303273
+#Cost after iteration 600: 0.279880
+#Cost after iteration 700: 0.260042
+#Cost after iteration 800: 0.242941
+#Cost after iteration 900: 0.228004
+#Cost after iteration 1000: 0.214820
+#Cost after iteration 1100: 0.203078
+#Cost after iteration 1200: 0.192544
+#Cost after iteration 1300: 0.183033
+#Cost after iteration 1400: 0.174399
+#Cost after iteration 1500: 0.166521
+#Cost after iteration 1600: 0.159305
+#Cost after iteration 1700: 0.152667
+#Cost after iteration 1800: 0.146542
+#Cost after iteration 1900: 0.140872
+#train accuracy: 99.04306220095694 %
+#test accuracy: 70.0 %
+```
+
+트레이닝셋의 정확도는 거의 100%에 이르지만 테스트셋의 정확도는 70%이다. 적은 데이터셋과 로지스틱 회귀가 선형 분류임을 감안할 때 나쁘지 않은 분류 모델이라고 생각한다. 다만, 분류 모델이 트레이닝셋에 `과적합(overfitting)` 되었음을 알 수 있다.
