@@ -175,19 +175,19 @@ $$
 
 여기에선 시그모이드 함수를 활성화 함수로 구현하였다. 시그모이드 함수의 공식은 아래와 같다.
 $$
-sigmoid(w^Tx+b)=\frac{1}{1+e^{-(w^Tx+b)}}
+sigmoid(w^TX+b)=\frac{1}{1+e^{-(w^TX+b)}}
 $$
 
-자연지수함수 `exp(x)` 는 `np.exp()` 를 사용한다.
+자연지수함수 $exp(x)$ 는 `np.exp()` 를 사용한다.
 
 ```python
-def sigmoid():
+def sigmoid(z):
   s = 1/(1+np.exp(-z))
 
   return s
 ```
 
-#### 1.4.2 - 파라미터값 초기화
+#### 1.4.2 - 파라미터값 초기화 함수 구현
 
 초기 파라미터값을 `0` 으로 초기화하기 위한 함수를 구현한다. 이 때, 가중치들은 벡터로 표현되어 있기 때문에 `np.zeros()` 함수를 이용하여 초기화 한다.
 
@@ -206,7 +206,7 @@ def initialize_with_zeros(dim):
 파라미터값을 초기화 하였으니 순전파와 역전파를 구현한다.
 + 순전파
   - 활성화 함수 값을 이용하여 비용함수를 계산한다. 공식은 아래와 같다.
-  $$ A=sigmoid(w^Tx+b)=(a^{(1)}, a^{(2)},..., a^{(m-1)}, a^{(m)})\tag{1} $$
+  $$ A=sigmoid(w^TX+b)=(a^{(1)}, a^{(2)},..., a^{(m-1)}, a^{(m)})\tag{1} $$
 
   $$ COST=J=-\frac{1}{m}\sum_{i=1}^my^{(i)}log(a^{(i)})+(1-y^{(i)})log(1-a^{(i)})\tag{2} $$
 
@@ -220,11 +220,11 @@ def initialize_with_zeros(dim):
 def propagate(w, b, X, Y):
   m = X.shape[1]
 
-  #Forward propagation(From X To COST)
+  # Forward propagation(From X To COST)
   A = sigmoid(np.dot(w.T, x) + b)
   cost = (-1/m)*np.sum(Y*np.log(A)+(1-Y)*np.log(1-A))
 
-  #Backward propagation(To find grad)
+  # Backward propagation(To find grad)
   dw = (1/m)*np.dot(X, (A-Y).T)
   db = (1/m)*np.sum(A-Y)
 
@@ -234,4 +234,71 @@ def propagate(w, b, X, Y):
           "db" : db}
 
   return grads, cost
+```
+
+#### 1.4.4 - 파라미터값 업데이트 함수 구현
+
+비용함수를 계산하고 그에 대한 미분값을 구하는 함수를 구현했으니 이제 경사하강법을 사용하여 파라미터값을 업데이트하는 함수를 구현한다. 비용함수를 최소화하는 파라미터값을 찾는 것이 우리의 목표이다. 파라미터 $\theta$ 를 업데이트 할 때, 아래와 같은 공식을 사용한다.
+
+$$ \theta=\theta-\alpha d\theta $$
+
+이 때, $\alpha$ 는 `학습률(learning rate)` 이다.
+
+```python
+def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
+  costs = []
+
+  for i in range(num_iterations):
+    # Cost and gradient calculation
+    grads, cost = propagate(w, b, X, Y)
+
+    # Retrieve derivatives from grads
+    dw = grads[dw]
+    db = grads[db]
+
+    # Update parameters
+    w = w - learning_rate * dw
+    b = b - learning_rate * db
+
+    # Record the costs
+    if i % 100 == 0:
+      costs.append(cost)
+
+    # Print the cost every 100 training iterations
+    if print_cost and i % 100 == 0:
+      print(f"Cost after iterations {i} : {cost}")
+
+  params = {"w" : w,
+            "b" : b}
+
+  grads = {"dw" : dw,
+           "db" : db}
+
+  return params, grads, costs
+```
+
+#### 1.4.5 - 예측 함수 구현
+
+앞서 구현한 함수들을 이용하여 파라미터값 업데이트가 끝나면 아래의 두 단계를 거쳐 테스트셋을 가지고 결과를 예측할 수 있다.
+
+1. `Y 예측값(활성화 함수 값)` 을 구한다. $(\hat{Y}=A=sigmoid(w^TX+b))$
+2. Y 예측값을 `0(if A <= 0.5)` 또는 `1(if A > 0.5)` 로 변환한다.
+
+```python
+def predict(w, b, X):
+  m = X.shape[1]
+  Y_prediction = np.zeros((1, m))
+  w = w.reshape(X.shape[0], 1)
+
+  # Compute vector "A" predicting the probabilities of a cat being present
+  A = sigmoid(np.dot(w.T, X) + b)
+
+  for i in range(A.shape[1]):    
+    # Convert probabilities A[0,i] to actual predictions p[0,i]
+    if A[0, i] <= 0.5:
+      Y_prediction[0, i] = 0
+    else:
+      Y_prediction[0, i] = 1
+
+    return Y_prediction
 ```
