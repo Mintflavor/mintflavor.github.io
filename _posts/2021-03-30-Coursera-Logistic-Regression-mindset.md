@@ -159,7 +159,7 @@ $$
 이제 다음 스텝을 따라 신경망을 제작한다.
 
 1. 신경망 구조를 정의한다.
-2. 신경망의 각종 `파라미터값(weight, bias)`을 `랜덤으로 초기화` 한다.
+2. 신경망의 각종 `파라미터값(weight, bias)`을 `초기화` 한다.
 3. `비용(오차)을 최소화`하는 파라미터값을 구할 수 있도록 신경망을 학습시킨다.
 4. 학습된 신경망을 통해 테스트셋을 예측한다.
 5. 결과를 분석하고 결론을 내린다.
@@ -172,3 +172,66 @@ $$
 $$
 sigmoid(x), tanh(x), ReLU(x), Leakly ReLU(x), softmax(x), ETC...
 $$
+
+여기에선 시그모이드 함수를 활성화 함수로 구현하였다. 시그모이드 함수의 공식은 아래와 같다.
+$$
+sigmoid(w^Tx+b)=\frac{1}{1+e^{-(w^Tx+b)}}
+$$
+
+자연지수함수 `exp(x)` 는 `np.exp()` 를 사용한다.
+
+```python
+def sigmoid():
+  s = 1/(1+np.exp(-z))
+
+  return s
+```
+
+#### 1.4.2 - 파라미터값 초기화
+
+초기 파라미터값을 `0` 으로 초기화하기 위한 함수를 구현한다. 이 때, 가중치들은 벡터로 표현되어 있기 때문에 `np.zeros()` 함수를 이용하여 초기화 한다.
+
+```python
+def initialize_with_zeros(dim):
+  w = np.zeros(dim, 1)
+  b = 0
+
+  return w, b
+```
+
+이미지를 `input(dim)` 으로 넣는다면, `w` 의 `shape` 는 `(num_px * num_px * 3, 1)` 이 될 것 이다.
+
+#### 1.4.3 - 순전파와 역전파 구현
+
+파라미터값을 초기화 하였으니 순전파와 역전파를 구현한다.
++ 순전파
+  - 활성화 함수 값을 이용하여 비용함수를 계산한다. 공식은 아래와 같다.
+  $$ A=sigmoid(w^Tx+b)=(a^{(1)}, a^{(2)},..., a^{(m-1)}, a^{(m)})\tag{1} $$
+
+  $$ COST=J=-\frac{1}{m}\sum_{i=1}^my^{(i)}log(a^{(i)})+(1-y^{(i)})log(1-a^{(i)})\tag{2} $$
+
++ 역전파
+  - 비용함수를 `가중치` 와 `편향` 으로 미분한 값을 계산한다. 공식은 아래와 같다.
+  $$ \frac{\partial J}{\partial w} = \frac{1}{m}X(A-Y)^T\tag{1}$$
+
+  $$ \frac{\partial J}{\partial b} = \frac{1}{m} \sum_{i=1}^m (a^{(i)}-y^{(i)})\tag{2}$$
+
+```python
+def propagate(w, b, X, Y):
+  m = X.shape[1]
+
+  #Forward propagation(From X To COST)
+  A = sigmoid(np.dot(w.T, x) + b)
+  cost = (-1/m)*np.sum(Y*np.log(A)+(1-Y)*np.log(1-A))
+
+  #Backward propagation(To find grad)
+  dw = (1/m)*np.dot(X, (A-Y).T)
+  db = (1/m)*np.sum(A-Y)
+
+  cost = np.squeeze(cost)
+
+  grads = {"dw" : dw,
+          "db" : db}
+
+  return grads, cost
+```
