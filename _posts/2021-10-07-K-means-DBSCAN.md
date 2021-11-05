@@ -3,7 +3,7 @@ date: 2021-10-07 00:00:00 +0900
 title:  "K-means vs. DBSCAN"
 subtitle: "K-means vs. DBSCAN"
 categories: Machine-learning
-tags: Logistic_regression Machine-learning Clustering
+tags: Machine-learning Clustering
 comments: true
 use_math: true
 ---
