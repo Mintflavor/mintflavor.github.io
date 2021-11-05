@@ -8,7 +8,6 @@ comments: true
 use_math: true
 ---
 # K-means 와 DBSCAN 알고리즘 비교
-##### 2017010055 박현일
 
 ## 1. 데이터셋
 K-means 와 DBSCAN 알고리즘 비교를 위해 numpy random 함수를 이용하여 간단한 데이터셋을 만들었다.
@@ -26,7 +25,6 @@ K_means.fit(X)
 
 ## 3. DBSCAN
 6개의 `(eps, min_samples)` 묶음을 준비하여 학습하였고 그 중 가장 성능이 좋은 조합을 발견할 수 있었다.
-
 ```python
 #enu = ((eps, min_samples))
 enu = ((0.5, 3), (0.5, 5), (1, 3), (1, 5), (1.5, 3), (1.5, 5))

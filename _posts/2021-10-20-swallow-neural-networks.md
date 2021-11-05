@@ -8,7 +8,6 @@ comments: true
 use_math: true
 ---
 # Swallow neural networks 가중치와 편향을 반복문 없이 업데이트하기
-##### 2017010055 박현일
 
 ## 1. train 함수 수정
 train 함수 내에서 가중치와 편향을 반복문을 통해 업데이트하는 코드를 반복문 없이 동작하도록 수정한다.

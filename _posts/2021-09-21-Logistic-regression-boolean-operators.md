@@ -8,7 +8,6 @@ comments: true
 use_math: true
 ---
 # Logistic regression을 이용하여 Boolean operators의 입력값에 따른 참/거짓 예측 모델 만들기
-##### 2017010055 박현일
 
 ## 1. 개요
 Logistic regression을 이용해 각 Boolean operators의 결과값을 예측하는 모델들을 제작한다. 모델들은 수업시간에 배웠던 예제를 활용하였다.
