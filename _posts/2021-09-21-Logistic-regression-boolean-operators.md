@@ -1,5 +1,4 @@
 ---
-layout: post
 date: 2021-09-21 00:00:00 +0900
 title:  "Logistic regression boolean operators"
 subtitle: "Logistic regression boolean operators"
@@ -164,7 +163,7 @@ sns.lineplot(ax=line[2], data=XOR_model.costArray)
 line[2].set_title("XOR model cost plot")
 line[2].set_ylim(bottom=0, top=1)
 ```
-![logistic regression cost plot](assets/logistic%20regression%20cost%20plot.png)
+![logistic regression cost plot](assets/logistic regression cost plot.png)
 
 - AND model의 경우, cost값이 약 1.0으로 시작하여 epoch가 증가할수록 0에 가까워진다.
 - 마찬가지로 OR model의 경우, cost값이 약 0.6으로 시작하여 epoch가 증가할수록 0에 가까워진다.
@@ -176,6 +175,6 @@ print("   X\t      AND_model\t               OR_model\t      XOR_model")
 for i in [(0,0), (0,1), (1,0), (1,1)]:
     print(f"{i} : {AND_model.predict(i)},\t {OR_model.predict(i)},\t {XOR_model.predict(i)}")
 ```
-![스크린샷 2021-09-21 오후 7.21.39](assets/스크린샷%202021-09-21%20오후%207.21.39.png)
+![스크린샷 2021-09-21 오후 7.21.39](assets/스크린샷 2021-09-21 오후 7.21.39.png)
 
 위의 결과를 확인해보면 AND 모델과 OR 모델은 잘 학습되어 올바른 예측 결과를 도출하였다. 하지만 XOR 모델에서는 모든 예측 결과가 0.5로 조금 이상한 모습을 보인다.
