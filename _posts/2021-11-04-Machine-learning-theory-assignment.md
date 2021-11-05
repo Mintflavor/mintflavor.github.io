@@ -1466,10 +1466,6 @@ Y_train_tree.reset_index(drop=True, inplace=True)
 Y_test_tree.reset_index(drop=True, inplace=True)
 ```
 
-    /Users/mintflavor/tensorflow_macos_venv/lib/python3.8/site-packages/sklearn/utils/validation.py:63: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-      return f(*args, **kwargs)
-
-
 #### 4.2.2.2 분석 진행
 
 - 결정나무 모델을 구현하여 분석을 진행한다. 위와 마찬가지로 클래스 불균형을 해소하기 위한 파라미터를 넘겨준다.
@@ -1559,9 +1555,6 @@ Y_train_rf.reset_index(drop=True, inplace=True)
 Y_test_rf.reset_index(drop=True, inplace=True)
 ```
 
-    /Users/mintflavor/tensorflow_macos_venv/lib/python3.8/site-packages/sklearn/utils/validation.py:63: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-      return f(*args, **kwargs)
-
 
 #### 4.2.3.2 분석 진행
 
@@ -1634,9 +1627,6 @@ X_test_lgbm.reset_index(drop=True, inplace=True)
 Y_train_lgbm.reset_index(drop=True, inplace=True)
 Y_test_lgbm.reset_index(drop=True, inplace=True)
 ```
-
-    /Users/mintflavor/tensorflow_macos_venv/lib/python3.8/site-packages/sklearn/utils/validation.py:63: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-      return f(*args, **kwargs)
 
 
 #### 4.2.4.2 분석 진행
