@@ -265,7 +265,7 @@ $$
 동시 발생 행렬을 사용하여 위 PMI 식을 재정의한다. C는 동시 발생 행렬, N은 말뭉치에 포함된 단어의 수이다.
 
 $$
-PMI(x, y)=log_{2}{P(x,y)\over P(x)P(y)}=log_{2}{\frac{C(x, y)}{N}\over \frac{C(x), C(y)}{N}}=log_{2}{C(x,y)N\cdot\over C(x)C(y)}
+PMI(x, y)=log_{2}{P(x,y)\over P(x)P(y)}=log_{2}{\frac{C(x, y)}{N}\over \frac{C(x), C(y)}{N}}=log_{2}{C(x,y)\cdot N\over C(x)C(y)}
 $$
 
 다만, PMI에도 두 단어의 동시 발생 횟수가 0이라면 $log_{2}{0}=-\infty$ 가 된다는 문제점이 있다. 따라서 실제로 구현할 때에는 **양의 상호정보량(Positive PMI)** 을 사용한다.
